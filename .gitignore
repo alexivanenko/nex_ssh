@@ -1,0 +1,15 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+main
+
+# Folders
+_obj
+_test
+.DS_Store
+.idea
+config.ini
+sh/mypaydetails_pull_push.sh
+sh/mypoweb_pull_push.sh
+sh/peo_pull_push.sh

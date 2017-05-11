@@ -1,0 +1,19 @@
+[ssh]
+user = username
+host = 192.168.1.1
+port = 22
+
+[net_extender]
+server = remote.server.com
+port = 4433
+domain = domain_name.local
+username = User
+password = 1234
+
+[git_dirs]
+local_update_script = local_pull_push.sh
+server_web_root = /var/www/html/
+
+[server_pull_list]
+-: mysite1.com/html
+-: mysite2.com/html
