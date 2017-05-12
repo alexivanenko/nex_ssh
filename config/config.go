@@ -15,7 +15,7 @@ import (
 	"github.com/go-ini/ini"
 )
 
-const LOCAL = true
+const LOCAL = false
 const VERSION = "0.0.1"
 
 var config *ini.File
