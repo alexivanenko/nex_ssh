@@ -21,6 +21,7 @@ func main() {
 	runNex()
 	defer killNetExtender()
 
+	fmt.Println("SSH Connect: First Attempt")
 	conn, err := sshConnect()
 
 	if err == nil {
@@ -28,13 +29,16 @@ func main() {
 	} else {
 		//If nEx still not connected sleep, wait and try to connect to server again
 		time.Sleep(time.Second * time.Duration(config.Int("net_extender", "run_timeout")))
+		fmt.Println("SSH Connect: Second Attempt")
 		conn, err = sshConnect()
+
+		if err == nil {
+			execLocalPullPush()
+		}
 	}
 
+	//Server Side Part
 	if err == nil {
-		execLocalPullPush()
-
-		//Server Side Part
 		var pullList []string
 		var fullPath string
 
