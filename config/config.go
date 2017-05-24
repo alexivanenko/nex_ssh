@@ -27,6 +27,14 @@ func String(section string, key string) string {
 	return getValue(section, key).String()
 }
 
+func Int(section string, key string) int {
+	if val, err := getValue(section, key).Int(); err != nil {
+		return 0
+	} else {
+		return val
+	}
+}
+
 //Strings returns multiple values from config autoincrement section
 func Strings(section string) []string {
 	var cfgSection *ini.Section

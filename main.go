@@ -18,15 +18,23 @@ func main() {
 	config.Log("Run nEx SSH")
 
 	//Local Machine Part
-	runNetExtender()
+	runNex()
 	defer killNetExtender()
 
-	execLocalPullPush()
-
-	//SSH Part
 	conn, err := sshConnect()
 
 	if err == nil {
+		execLocalPullPush()
+	} else {
+		//If nEx still not connected sleep, wait and try to connect to server again
+		time.Sleep(time.Second * time.Duration(config.Int("net_extender", "run_timeout")))
+		conn, err = sshConnect()
+	}
+
+	if err == nil {
+		execLocalPullPush()
+
+		//Server Side Part
 		var pullList []string
 		var fullPath string
 
@@ -53,8 +61,8 @@ func main() {
 	}
 }
 
-//runNetExtender runs netExtender process in the background
-func runNetExtender() {
+//runNex runs netExtender process in the background and returns PID
+func runNex() {
 	cmdString := "netExtender -u " + config.String("net_extender", "username") +
 		" -p " + config.String("net_extender", "password") +
 		" -d " + config.String("net_extender", "domain") +
@@ -71,11 +79,11 @@ func runNetExtender() {
 
 	cmd.Wait()
 
-	//Sleep for 20 seconds and wait while NetExtender init
+	//Sleep for few seconds seconds and wait while NetExtender init
 	//Use this bad way because didn't resolve the problem with
 	//running the nEx process, reading stdout and go down to
 	//next line of code
-	time.Sleep(time.Second * 20)
+	time.Sleep(time.Second * time.Duration(config.Int("net_extender", "run_timeout")))
 }
 
 //killNetExtender kills netExtender process

@@ -9,6 +9,7 @@ port = 4433
 domain = domain_name.local
 username = User
 password = 1234
+run_timeout = 20
 
 [git_dirs]
 local_update_script = local_pull_push.sh
