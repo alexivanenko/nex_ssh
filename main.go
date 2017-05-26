@@ -65,7 +65,7 @@ func main() {
 	}
 }
 
-//runNex runs netExtender process in the background and returns PID
+//runNex runs netExtender process in the background
 func runNex() {
 	cmdString := "netExtender -u " + config.String("net_extender", "username") +
 		" -p " + config.String("net_extender", "password") +
